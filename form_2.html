@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Validation Form</title>
+	<style type="text/css">
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+		input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+			margin-bottom: 20px;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			width: 300px;
+			font-size: 16px;
+		}
+		input[type="submit"] {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			font-size: 16px;
+			cursor: pointer;
+			width: 300px;
+		}
+		.error {
+			color: red;
+			margin-bottom: 10px;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<form id="validationForm">
+		<label for="fullName">Full Name:</label>
+		<input type="text" id="fullName" name="fullName" required minlength="5">
+		<span class="error" id="fullNameError"></span>
+
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required>
+		<span class="error" id="emailError"></span>
+
+		<label for="phone">Phone Number:</label>
+		<input type="tel" id="phone" name="phone" required minlength="10" maxlength="10">
+		<span class="error" id="phoneError"></span>
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required minlength="8">
+		<span class="error" id="passwordError"></span>
+
+		<label for="confirmPassword">Confirm Password:</label>
+		<input type="password" id="confirmPassword" name="confirmPassword" required minlength="8">
+		<span class="error" id="confirmPasswordError"></span>
+
+		<input type="submit" value="Submit" id="submitBtn">
+	</form>
+
+	<script type="text/javascript">
+		const form = document.getElementById("validationForm");
+		const fullName = document.getElementById("fullName");
+		const email = document.getElementById("email");
+		const phone = document.getElementById("phone");
+		const password = document.getElementById("password");
+		const confirmPassword = document.getElementById("confirmPassword");
+		const submitBtn = document.getElementById("submitBtn");
+
+		form.addEventListener("submit", function(event) {
+			event.preventDefault();
+			validateForm();
+		});
+
+		function validateForm() {
+			const fullNameValue = fullName.value.trim();
+			const emailValue = email.value.trim();
+			const phoneValue = phone.value.trim();
+			const passwordValue = password.value.trim();
+			const confirmPasswordValue = confirmPassword.value.trim();
+
+			let isFormValid = true;
+
+			if (fullNameValue.length < 5) {
+				document.getElementById("fullNameError").innerHTML = "Full Name must be at least 5 characters.";
+				isFormValid = false;
+			} else {
+				document.getElementById("fullNameError").innerHTML = "";
+			}
+
+			if (emailValue.indexOf("@") === -1) {
+				document.getElementById("emailError").innerHTML = "Email must contain @ character.";
+				isFormValid = false;
+			} else {
+				document
